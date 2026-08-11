@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anime Friends Survey</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #333;
+      padding: 20px;
+    }
+
+    .survey-box {
+      width: 100%;
+      max-width: 560px;
+      background: white;
+      border-radius: 18px;
+      padding: 35px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #3b2a69;
+    }
+
+    .question {
+      display: none;
+    }
+
+    .question.active {
+      display: block;
+    }
+
+    label {
+      display: block;
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    select, input {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: 1px solid #aaa;
+      margin-bottom: 15px;
+    }
+
+    button {
+      width: 100%;
+      background: #6a11cb;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 13px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #4c0b91;
+    }
+
+    .result {
+      margin-top: 20px;
+      background: #f7f2ff;
+      padding: 12px;
+      border-radius: 10px;
+      font-weight: bold;
+      color: #452673;
+    }
+
+    .final-message {
+      line-height: 1.6;
+      font-size: 17px;
+    }
+  </style>
+</head>
+<body>
+  <div class="survey-box">
+    <h1>Anime Friends Survey</h1>
+
+    <div id="q1" class="question active">
+      <label for="anime">Do you like anime?</label>
+      <select id="anime">
+        <option value="">Choose an answer</option>
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+      </select>
+      <button onclick="goToNext(1)">Next</button>
+    </div>
+
+    <div id="q2" class="question">
+      <label for="naruto">Have you watched Naruto?</label>
+      <select id="naruto">
+        <option value="">Choose an answer</option>
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+      </select>
+      <button onclick="goToNext(2)">Next</button>
+    </div>
+
+    <div id="final" class="question">
+      <div id="finalText" class="final-message"></div>
+      <button onclick="restartSurvey()" style="margin-top: 18px;">Restart Survey</button>
+    </div>
+  </div>
+
+  <script>
+    function goToNext(step) {
+      if (step === 1) {
+        const anime = document.getElementById('anime').value;
+        if (!anime) {
+          alert('Please select yes or no.');
+          return;
+        }
+
+        if (anime === 'yes') {
+          document.getElementById('finalText').innerHTML = 'yay! i am so happy you are a fan of anime';
+        } else {
+          document.getElementById('finalText').innerHTML = 'ohhhh i see you are not a fan of anime';
+        }
+
+        show('q1', 'q2');
+      } else if (step === 2) {
+        const naruto = document.getElementById('naruto').value;
+        if (!naruto) {
+          alert('Please select yes or no.');
+          return;
+        }
+
+        const finalText = document.getElementById('finalText');
+        if (naruto === 'yes') {
+          finalText.innerHTML = 'ohhhh i see you have watched naruto, you are a true fan of anime';
+        } else {
+          finalText.innerHTML = 'you are missing out on a great anime series, you should watch it!';
+        }
+
+        show('q2', 'final');
+      }
+    }
+
+    function show(hideId, showId) {
+      document.getElementById(hideId).classList.remove('active');
+      document.getElementById(showId).classList.add('active');
+    }
+
+    function restartSurvey() {
+      document.getElementById('anime').value = '';
+      document.getElementById('naruto').value = '';
+      document.getElementById('finalText').innerHTML = '';
+      show('final', 'q1');
+    }
+  </script>
+</body>
+</html>
