@@ -1,0 +1,9 @@
+# Jekyll configuration
+title: Anime Survey
+description: A simple anime friends survey application
+url: "https://beastankit444-commits.github.io/animesurvey1"
+theme: jekyll-theme-primer
+
+# Include additional files
+include:
+  - ".htaccess"
